@@ -1,0 +1,175 @@
+a,.box-content a, #theme-sidebar .textwidget a, #footer .textwidget a, .comment-body a, .entry-content a, .entry-summary a,.headerbox i,#theme-sidebar h3,#theme-sidebar a:hover,.main-navigation a:hover,#footer h3,.main-navigation .current_page_item > a, .main-navigation .current-menu-item > a, .main-navigation .current_page_ancestor > a{
+    color: #f6ad21;
+}
+.readmore-btn a:hover,.search-box i,#theme-sidebar button[type="submit"], #footer button[type="submit"],span.meta-nav,.main-navigation ul ul a:hover,#comments input[type="submit"],.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt,.page-numbers,.prev.page-numbers, .next.page-numbers,.toggle-nav button,.more-btn a,#our_project i,#slider .carousel-control-prev-icon, #slider .carousel-control-next-icon,.error-404 [type="submit"],button[type="submit"]{
+    background: #f6ad21;
+}
+.readmore-btn a,.search_inner form.search-form,#footer .tagcloud a:hover{
+    border-color: #f6ad21;
+}
+
+/* Logo  */
+
+.logo {
+    position: static;
+    text-align: right;
+    width: auto;
+    height: auto;
+    background: transparent;
+    border-radius: 0;
+    margin: 0;
+    padding: 10px 0;
+}
+
+/* Header  */
+
+.headerbox,.menubar {
+    padding: 0;
+    background: transparent;
+}
+.header-main,.site-info {
+    background-image: linear-gradient(to left, #38615d , #34b3a3);
+}
+.headerbox i {
+    font-size: 25px;
+    padding: 0;
+}
+span.infotext {
+    font-size: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+span.simplep,.main-navigation a {
+    color: #fff;
+    font-size: 15px;
+}
+.search-box {
+    text-align: left;
+}
+.search-box i {
+    padding: 20px 12px;
+}
+.contact-section {
+    border-bottom: 1px solid rgb(255 255 255 / 25%);
+}
+.search_inner {
+    max-width: 100%;
+}
+
+/* Slider  */
+
+#slider .carousel-caption {
+    top: 50%;
+    left: 15%;
+    right: 45%;
+}
+#slider .inner_carousel {
+    text-align: left;
+}
+#slider .inner_carousel h2 {
+    margin-bottom: 15px;
+}
+#slider .carousel-control-prev-icon, #slider .carousel-control-next-icon {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 3px;
+}
+#slider .carousel-control-prev-icon:hover, #slider .carousel-control-next-icon:hover{
+    background: #252c3a;
+}
+
+/* Projects  */
+
+#our_project button.owl-prev, #our_project button.owl-next {
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+}
+#our_project button.owl-next {
+    left: -55px;
+}
+#our_project button.owl-prev {
+    right: -55px;
+}
+
+.center1 {
+    border-right-color: #f6ad21;
+    border-top-color: #f6ad21;
+}
+.center1 .ring::before {
+    background: #fdb719;
+}
+.center2 .ring::before {
+    background: #151515;
+}
+
+.bypostauthor > .comment-body > .comment-meta > .comment-author .avatar {
+  border: 1px solid #333;
+  padding: 2px;
+}
+.aligncenter,
+div.aligncenter {
+  display: block;
+  margin: 5px auto 5px auto;
+}
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}
+.screen-reader-text:focus {
+  background-color: #eee;
+  clip: auto !important;
+  clip-path: none;
+  color: #444;
+  display: block;
+  font-size: 1em;
+  height: auto;
+  right: 5px;
+  line-height: normal;
+  padding: 15px 23px 14px;
+  text-decoration: none;
+  top: 5px;
+  width: auto;
+  z-index: 100000; /* Above WP toolbar. */
+}
+
+@media screen and (max-width: 767px){
+    #our_project button.owl-next {
+        left: 0;
+    }
+    #our_project button.owl-prev {
+        right: 0;
+    }
+    #slider .carousel-caption {
+        left: 15%;
+        right: 15%;
+        padding: 0;
+    }
+    #slider .inner_carousel,.logo {
+        text-align: center;
+    }
+    .toggle-nav button{
+        margin: 0;
+    }
+    .search-box {
+        text-align: right;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px){
+    #our_project button.owl-next {
+        left: 0;
+    }
+    #our_project button.owl-prev {
+        right: 0;
+    }
+}

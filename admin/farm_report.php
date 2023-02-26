@@ -1,0 +1,149 @@
+<?php require('includes/header.php') ?>
+
+<!-- begin:: Subheader -->
+<div class="kt-subheader  kt-grid__item" id="kt_subheader"></div>
+<!-- end:: Subheader -->
+
+
+<!-- begin:: Content -->
+<div class="kt-container  kt-grid__item kt-grid__item--fluid">
+    <!--Begin::Dashboard 3-->
+
+    <div class="row">
+        <div class="col-xl-12">
+            <!--begin:: Widgets/Applications/User/Profile3-->
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <div class="kt-portlet__body">
+                    <div class="kt-portlet__body">
+
+
+                        <div class="kt-portlet__head kt-portlet__head--lg mb-4">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Farm Management
+                                    <small>Generate Farm Report</small>
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-md-3">
+                                <label for="date_started">Start Date</label>
+                                <input type="text" class="form-control" id="start_date"
+                                       placeholder="Select Start Date">
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <label for="date_completed">End Date</label>
+                                <input type="text" class="form-control" id="end_date"
+                                       placeholder="Select End Date">
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <label for="activity_type">Activity Type</label>
+                                <select id="activity_type" style="width: 100%">
+                                    <option value="">Select Activity Type</option>
+                                    <option value="Fertilizer Application">Fertilizer Application</option>
+                                    <option value="Insecticide/Pesticide Application">Insecticide/Pesticide Application</option>
+                                    <option value="Watering">Watering</option>
+                                    <option value="Other Activities">Other Activities</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <label for="date_completed">Search</label> <br/>
+                                <button type="button" class="btn btn-primary" id="search">Search</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12 col-xs-12 col-sm-12">
+                                <div id="searchptable_div"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--end:: Widgets/Applications/User/Profile3-->
+        </div>
+    </div>
+
+</div>
+<!--End::Dashboard 3-->
+<!-- end:: Content -->
+
+<?php require('includes/footer.php') ?>
+
+<script>
+    $('#start_date').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        orientation: "bottom"
+    });
+
+    $('#end_date').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        orientation: "bottom"
+    });
+
+    $("#activity_type").select2({placeholder: "Select Activity Type"});
+
+    $("#search").click(function(){
+        var start_date = $("#start_date").val();
+        var end_date = $("#end_date").val();
+        var activity_type = $("#activity_type").val();
+
+        var error = '';
+        if (start_date == "") {
+            error += 'Please select start date\n';
+            $("#start_date").focus();
+        }
+        if (end_date == "") {
+            error += 'Please select end date\n';
+            $("#end_date").focus();
+        }
+        if (start_date != "" && end_date != "" && start_date > end_date) {
+            error += 'Please specify correct date range\n';
+            $("#end_date").focus();
+        }
+        if (activity_type == "") {
+            error += 'Please select type of activity\n';
+        }
+
+        if (error == "") {
+            $.ajax({
+                method: "post",
+                url: "ajax/tables/farmreport_table.php",
+                beforeSend: function () {
+                    KTApp.blockPage({
+                        overlayColor: "#000000",
+                        type: "v2",
+                        state: "success",
+                        message: "Please wait..."
+                    })
+                },
+                data: {
+                    start_date: start_date,
+                    end_date: end_date,
+                    activity_type:activity_type
+                },
+                success: function (text) {
+                    $('#searchptable_div').html(text);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + " " + thrownError);
+                },
+                complete: function () {
+                    KTApp.unblockPage();
+                },
+
+            });
+        }
+        else {
+            $.notify(error, {position: "top center"});
+        }
+        return false;
+    });
+
+
+</script>
+

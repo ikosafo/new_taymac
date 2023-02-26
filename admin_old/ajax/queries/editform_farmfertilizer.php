@@ -1,0 +1,36 @@
+<?php
+include('../../../config.php');
+
+$fertilizer_name = mysqli_real_escape_string($mysqli, $_POST['fertilizer_name']);
+$application_area = mysqli_real_escape_string($mysqli, $_POST['application_area']);
+$tunnel = mysqli_real_escape_string($mysqli, $_POST['tunnel']);
+$product = mysqli_real_escape_string($mysqli, $_POST['product']);
+$input_kg = mysqli_real_escape_string($mysqli, $_POST['input_kg']);
+$input_g = mysqli_real_escape_string($mysqli, $_POST['input_g']);
+$date_activity = mysqli_real_escape_string($mysqli, $_POST['date_activity']);
+$activity_description = mysqli_real_escape_string($mysqli, $_POST['activity_description']);
+$theindex = mysqli_real_escape_string($mysqli, $_POST['theindex']);
+$datetime = date('Y-m-d H:i:s');
+
+$getproductid = $mysqli->query("select * from farm_products where product_name = '$product'");
+$resid = $getproductid->fetch_assoc();
+$productid = $resid['id'];
+
+$gettunnelid = $mysqli->query("select * from farm_funnel where funnel_name = '$tunnel'");
+$restid = $gettunnelid->fetch_assoc();
+$tunnelid = $restid['id'];
+
+$mysqli->query("UPDATE `farm_fertilizer`
+SET 
+  `fertilizer_name` = '$fertilizer_name',
+  `application_area` = '$application_area',
+  `tunnel` = '$tunnelid',
+  `product` = '$productid',
+  `input_kg` = '$input_kg',
+  `input_g` = '$input_g',
+  `date_activity` = '$date_activity',
+  `activity_description` = '$activity_description'
+ 
+WHERE `id` = '$theindex'") or die(mysqli_error($mysqli));
+
+echo 1;
