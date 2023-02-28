@@ -12,34 +12,6 @@ $rowcount = mysqli_num_rows($res);
 
 $today = date("Y-m-d H:i:s");
 
-ob_start();
-system('ipconfig /all');
-$mycom=ob_get_contents();
-ob_clean();
-$findme = 'physique';
-$pmac = strpos($mycom, $findme);
-$mac_address = substr($mycom,($pmac+33),17);
-
-function getRealIpAddr()
-{
-    if (!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet
-    {
-        $ip_address=$_SERVER['HTTP_CLIENT_IP'];
-    }
-    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy
-    {
-        $ip_address=$_SERVER['HTTP_X_FORWARDED_FOR'];
-    }
-    else
-    {
-        $ip_address=$_SERVER['REMOTE_ADDR'];
-    }
-    return $ip_address;
-
-}
-
-$ip_add = getRealIpAddr();
-
 $full_name = $getdetails['full_name'];
 $password = $getdetails['password'];
 $user_id = $getdetails['user_id'];
@@ -85,5 +57,3 @@ VALUES ('Logged in Successfully',
     echo 1;
 
 }
-
-?>

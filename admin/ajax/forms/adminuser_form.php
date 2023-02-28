@@ -35,17 +35,12 @@ $random = rand(1, 10000) . date("Ymd");
 
                 <select id="permissions" multiple style="width: 100%">
                     <option value="">Select Permission</option>
+                    <option value="All Permissions">All Permissions</option>
                     <optgroup label="Property Management">
                         <option value="permission_property">Property</option>
                         <option value="permission_tenants">Tenants</option>
                         <option value="permission_billing">Billing</option>
                         <option value="permission_service">Service & Maintenance</option>
-                    </optgroup>
-                    <optgroup label="Farm Management">
-                        <option value="permission_categories">Categories</option>
-                        <option value="permission_finance">Finance</option>
-                        <option value="permission_harvesting">Harvesting</option>
-                        <option value="permission_tunnels">Tunnels</option>
                     </optgroup>
                     <optgroup label="Farm Management">
                         <option value="permission_categories">Categories</option>

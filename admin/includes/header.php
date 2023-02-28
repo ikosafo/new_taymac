@@ -16,6 +16,7 @@ if (isset($_SESSION['timeout'])) {
     }
 }
 $_SESSION['timeout'] = time();
+$username = $_SESSION['username'];
 
 
 ?>
@@ -170,19 +171,62 @@ background-size: 100% 350px;" class="kt-page--loading-enabled kt-page--loading k
                                         <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
                                             <ul class="kt-menu__subnav">
 
-                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_property.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_property" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                            <span></span></i><span class="kt-menu__link-text">Property</span></a>
-                                                </li>
-                                                <li class="kt-menu__item   <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_tenant.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_tenant" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Tenant</span></a>
-                                                </li>
-                                                <li class="kt-menu__item   <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_billing.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_billing" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Billing</span></a>
-                                                </li>
-                                                <li class="kt-menu__item   <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_sm.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_sm" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Service & Maintenance</span></a>
-                                                </li>
+                                                <?php
+                                                //Property
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_property' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_property.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_property" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span></i><span class="kt-menu__link-text">Property</span></a>
+                                                    </li>
+
+                                                <?php }
+                                                ?>
+
+
+                                                <?php
+                                                //Tenants
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_tenants' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item   <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_tenant.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_tenant" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Tenant</span></a>
+                                                    </li>
+
+                                                <?php }
+                                                ?>
+
+
+                                                <?php
+                                                //Billing
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_billing' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item   <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_billing.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_billing" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Billing</span></a>
+                                                    </li>
+
+                                                <?php }
+                                                ?>
+
+
+                                                <?php
+                                                //Service and Maintenance
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_service' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item   <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_sm.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_sm" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Service & Maintenance</span></a>
+                                                    </li>
+
+                                                <?php }
+                                                ?>
+
                                                 <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/search_property.php" ||
                                                                                                         $_SERVER['PHP_SELF'] == "/admin/search_tenant.php" ||
                                                                                                         $_SERVER['PHP_SELF'] == "/admin/search_billtype.php" ||
@@ -258,93 +302,154 @@ background-size: 100% 350px;" class="kt-page--loading-enabled kt-page--loading k
                                         <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
                                             <ul class="kt-menu__subnav">
 
-                                                <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_inputs.php" ||
-                                                                                                        $_SERVER['PHP_SELF'] == "/admin/farm_products.php"
+                                                <?php
+                                                //Farm Categories
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_categories' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_inputs.php" ||
+                                                                                                            $_SERVER['PHP_SELF'] == "/admin/farm_products.php"
 
-                                                                                                        ? "kt-menu__item--here" : ""); ?>" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                                                        <span class="kt-menu__link-text">Categories</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                                                                                            ? "kt-menu__item--here" : ""); ?>" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                                                            <span class="kt-menu__link-text">Categories</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
 
-                                                    <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
-                                                        <ul class="kt-menu__subnav">
+                                                        <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+                                                            <ul class="kt-menu__subnav">
 
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_inputs.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_inputs" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Farm Inputs</span></a>
-                                                            </li>
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_products.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_products" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Farm Products</span></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_inputs.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_inputs" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Farm Inputs</span></a>
+                                                                </li>
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_products.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_products" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Farm Products</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
 
-                                                <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_purchases.php" ||
-                                                                                                        $_SERVER['PHP_SELF'] == "/admin/farm_sales.php"
+                                                <?php }
+                                                ?>
 
-                                                                                                        ? "kt-menu__item--here" : ""); ?>" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                                                        <span class="kt-menu__link-text">Finance</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
 
-                                                    <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
-                                                        <ul class="kt-menu__subnav">
+                                                <?php
+                                                //Farm Finance
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_finance' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_purchases.php" ||
+                                                                                                            $_SERVER['PHP_SELF'] == "/admin/farm_sales.php"
 
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_purchases.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_purchases" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Purchase</span></a>
-                                                            </li>
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_sales.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_sales" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Sales</span></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
+                                                                                                            ? "kt-menu__item--here" : ""); ?>" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                                                            <span class="kt-menu__link-text">Finance</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
 
-                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_harvest.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_harvest" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                            <span></span></i><span class="kt-menu__link-text">Harvest</span></a>
-                                                </li>
+                                                        <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+                                                            <ul class="kt-menu__subnav">
 
-                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_tunnel.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_tunnel" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                            <span></span></i><span class="kt-menu__link-text">Tunnels</span></a>
-                                                </li>
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_purchases.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_purchases" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Purchase</span></a>
+                                                                </li>
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_sales.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_sales" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Sales</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
 
-                                                <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_fertilizer.php" ||
-                                                                                                        $_SERVER['PHP_SELF'] == "/admin/farm_pesticide.php" ||
-                                                                                                        $_SERVER['PHP_SELF'] == "/admin/farm_watering.php" ||
-                                                                                                        $_SERVER['PHP_SELF'] == "/admin/farm_otheractivity.php"
+                                                <?php }
+                                                ?>
 
-                                                                                                        ? "kt-menu__item--here" : ""); ?>" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                                                        <span class="kt-menu__link-text">Farm Activities</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
 
-                                                    <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
-                                                        <ul class="kt-menu__subnav">
+                                                <?php
+                                                //Farm Harvest
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_harvesting' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_harvest.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_harvest" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span></i><span class="kt-menu__link-text">Harvest</span></a>
+                                                    </li>
 
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_fertilizer.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_fertilizer" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Fertilizer Application</span></a>
-                                                            </li>
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_pesticide.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_pesticide" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Insecticide/Pesticide Application</span></a>
-                                                            </li>
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_watering.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_watering" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Watering</span></a>
-                                                            </li>
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_otheractivity.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_otheractivity" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Other Activities</span></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
+                                                <?php }
+                                                ?>
 
-                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_report.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_report" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                            <span></span></i><span class="kt-menu__link-text">Report</span></a>
-                                                </li>
+
+                                                <?php
+                                                //Farm Tunnels
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_tunnels' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_tunnel.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_tunnel" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span></i><span class="kt-menu__link-text">Tunnels</span></a>
+                                                    </li>
+
+                                                <?php }
+                                                ?>
+
+
+                                                <?php
+                                                //Farm Activities
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_factivities' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_fertilizer.php" ||
+                                                                                                            $_SERVER['PHP_SELF'] == "/admin/farm_pesticide.php" ||
+                                                                                                            $_SERVER['PHP_SELF'] == "/admin/farm_watering.php" ||
+                                                                                                            $_SERVER['PHP_SELF'] == "/admin/farm_otheractivity.php"
+
+                                                                                                            ? "kt-menu__item--here" : ""); ?>" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                                                            <span class="kt-menu__link-text">Farm Activities</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+
+                                                        <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+                                                            <ul class="kt-menu__subnav">
+
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_fertilizer.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_fertilizer" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Fertilizer Application</span></a>
+                                                                </li>
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_pesticide.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_pesticide" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Insecticide/Pesticide Application</span></a>
+                                                                </li>
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_watering.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_watering" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Watering</span></a>
+                                                                </li>
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_otheractivity.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_otheractivity" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Other Activities</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+
+                                                <?php }
+                                                ?>
+
+
+                                                <?php
+                                                //Farm Report
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_freport' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/farm_report.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="farm_report" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span></i><span class="kt-menu__link-text">Report</span></a>
+                                                    </li>
+
+
+                                                <?php }
+                                                ?>
+
 
                                                 <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/search_tunnelactivity.php" ||
                                                                                                         $_SERVER['PHP_SELF'] == "/admin/search_farmaccounts.php"
@@ -387,37 +492,59 @@ background-size: 100% 350px;" class="kt-page--loading-enabled kt-page--loading k
                                         <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
                                             <ul class="kt-menu__subnav">
 
-                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staff.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_staff" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                            <span></span></i><span class="kt-menu__link-text">Staff</span></a>
-                                                </li>
-
-                                                <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staffpaydetails.php" ||
-                                                                                                        $_SERVER['PHP_SELF'] == "/admin/admin_staffpaysearch.php" ||
-                                                                                                        $_SERVER['PHP_SELF'] == "/admin/admin_staffpay.php"
-
-                                                                                                        ? "kt-menu__item--here" : ""); ?>" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                                                        <span class="kt-menu__link-text">Payroll</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-
-                                                    <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
-                                                        <ul class="kt-menu__subnav">
+                                                <?php
+                                                //Staff
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_staff' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staff.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_staff" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span></i><span class="kt-menu__link-text">Staff</span></a>
+                                                    </li>
 
 
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staffpay.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_staffpay" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Make Payment</span></a>
-                                                            </li>
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staffpaydetails.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_staffpaydetails" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Details/Pay Slip</span></a>
-                                                            </li>
-                                                            <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staffpaysearch.php"
-                                                                                            ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_staffpaysearch" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                                        <span></span></i><span class="kt-menu__link-text">Search</span></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
+                                                <?php }
+                                                ?>
+
+
+                                                <?php
+                                                //Staff Payroll
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_payroll' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  kt-menu__item--submenu   <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staffpaydetails.php" ||
+                                                                                                            $_SERVER['PHP_SELF'] == "/admin/admin_staffpaysearch.php" ||
+                                                                                                            $_SERVER['PHP_SELF'] == "/admin/admin_staffpay.php"
+
+                                                                                                            ? "kt-menu__item--here" : ""); ?>" data-ktmenu-submenu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                                                            <span class="kt-menu__link-text">Payroll</span><i class="kt-menu__hor-arrow la la-angle-right"></i><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+
+                                                        <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
+                                                            <ul class="kt-menu__subnav">
+
+
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staffpay.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_staffpay" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Make Payment</span></a>
+                                                                </li>
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staffpaydetails.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_staffpaydetails" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Details/Pay Slip</span></a>
+                                                                </li>
+                                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_staffpaysearch.php"
+                                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_staffpaysearch" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                            <span></span></i><span class="kt-menu__link-text">Search</span></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+
+
+                                                <?php }
+                                                ?>
+
 
                                             </ul>
                                         </div>
@@ -438,20 +565,51 @@ background-size: 100% 350px;" class="kt-page--loading-enabled kt-page--loading k
                                         <div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
                                             <ul class="kt-menu__subnav">
 
-                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_payments.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_payments" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                            <span></span></i><span class="kt-menu__link-text">Payments</span></a>
-                                                </li>
+                                                <?php
+                                                //Payments
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_apayments' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_payments.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_payments" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span></i><span class="kt-menu__link-text">Payments</span></a>
+                                                    </li>
 
-                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_accentry.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_accentry" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                            <span></span></i><span class="kt-menu__link-text">Account Entry</span></a>
-                                                </li>
+                                                <?php }
+                                                ?>
 
-                                                <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_cashbook.php"
-                                                                                ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_cashbook" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                                            <span></span></i><span class="kt-menu__link-text">Cash Book</span></a>
-                                                </li>
+
+                                                <?php
+                                                //Accounts Entry
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_aentry' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_accentry.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_accentry" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span></i><span class="kt-menu__link-text">Account Entry</span></a>
+                                                    </li>
+
+                                                <?php }
+                                                ?>
+
+
+                                                <?php
+                                                //Cash Book
+                                                $query = $mysqli->query("select * from permission where username = '$username'
+                                                AND (permission = 'permission_acashbook' OR permission = 'All Permissions')");
+                                                $count = mysqli_num_rows($query);
+                                                if ($count == '1') { ?>
+                                                    <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_cashbook.php"
+                                                                                    ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_cashbook" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span></i><span class="kt-menu__link-text">Cash Book</span></a>
+                                                    </li>
+
+                                                <?php }
+                                                ?>
+
+
                                                 <li class="kt-menu__item  <?php echo ($_SERVER['PHP_SELF'] == "/admin/admin_accsearch.php"
                                                                                 ? "kt-menu__item--active" : ""); ?>" aria-haspopup="true"><a href="admin_accsearch" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                                             <span></span></i><span class="kt-menu__link-text">Search</span></a>
