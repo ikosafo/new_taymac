@@ -9,7 +9,6 @@ $username = $_POST['username'];
     }
 </style>
 
-<div class="kt-separator kt-separator--dashed"></div>
 
 <div class="kt-section">
 
@@ -19,7 +18,7 @@ $username = $_POST['username'];
                 <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">
                         <i class="la la-search"></i>
                     </span></div>
-                <input type="text" id="log_search" class="form-control" placeholder="Search Full Name or email address" aria-describedby="basic-addon1">
+                <input type="text" id="log_search" class="form-control" placeholder="Search..." aria-describedby="basic-addon1">
             </div>
         </div>
 

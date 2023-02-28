@@ -51,7 +51,7 @@ $username = $_SESSION['username'];
 
 <script>
     var username = '<?php echo $username ?>';
-    alert(username);
+    //alert(username);
     $.ajax({
         type: "POST",
         url: "ajax/tables/logs_table.php",
