@@ -636,9 +636,10 @@ background-size: 100% 350px;" class="kt-page--loading-enabled kt-page--loading k
                             <!--begin: Search -->
                             <div class="kt-header__topbar-item">
                                 <div class="kt-header__topbar-wrapper mt-2" data-offset="10px,0px">
-                                    <span class="kt-header__topbar-icon">
-                                        <a href="messages">
-                                            <i class="fa fa-envelope"></i>
+                                    <span class="kt-header__topbar-icon" style="background-color: <?php echo ($_SERVER['PHP_SELF'] == "/admin/logs.php"
+                                                                                                        ? "rgba(255,255,255,0.2)" : "transparent"); ?>">
+                                        <a href="logs">
+                                            <i class="fa fa-server"></i>
                                         </a> <!--<i class="flaticon2-search-1"></i>-->
                                     </span>
                                 </div>
