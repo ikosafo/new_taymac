@@ -1,5 +1,5 @@
-<?php include ('../../../config.php');
-$random = rand(1,10000).date("Ymd");
+<?php include('../../../config.php');
+$random = rand(1, 10000) . date("Ymd");
 ?>
 
 <form class="" autocomplete="off">
@@ -8,31 +8,67 @@ $random = rand(1,10000).date("Ymd");
         <div class="form-group row">
             <div class="col-lg-12 col-md-12">
                 <label for="fullname">Full Name</label>
-                <input type="text" class="form-control" id="fullname"
-                       placeholder="Enter Full Name">
+                <input type="text" class="form-control" id="fullname" placeholder="Enter Full Name">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-lg-12 col-md-12">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username"
-                       placeholder="Enter Username">
+                <input type="text" class="form-control" id="username" placeholder="Enter Username">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-lg-12 col-md-12">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password"
-                       placeholder="Enter Password">
+                <input type="password" class="form-control" id="password" placeholder="Enter Password">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-lg-12 col-md-12">
                 <label for="confirmpassword">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmpassword"
-                       placeholder="Confirm Password">
+                <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password">
             </div>
         </div>
+        <div class="form-group row">
+            <div class="col-lg-12 col-md-12">
+                <label for="permissions">Permissions</label>
+
+                <select id="permissions" multiple style="width: 100%">
+                    <option value="">Select Permission</option>
+                    <optgroup label="Property Management">
+                        <option value="permission_property">Property</option>
+                        <option value="permission_tenants">Tenants</option>
+                        <option value="permission_billing">Billing</option>
+                        <option value="permission_service">Service & Maintenance</option>
+                    </optgroup>
+                    <optgroup label="Farm Management">
+                        <option value="permission_categories">Categories</option>
+                        <option value="permission_finance">Finance</option>
+                        <option value="permission_harvesting">Harvesting</option>
+                        <option value="permission_tunnels">Tunnels</option>
+                    </optgroup>
+                    <optgroup label="Farm Management">
+                        <option value="permission_categories">Categories</option>
+                        <option value="permission_finance">Finance</option>
+                        <option value="permission_harvesting">Harvesting</option>
+                        <option value="permission_tunnels">Tunnels</option>
+                        <option value="permission_factivities">Farm Activities</option>
+                        <option value="permission_freport">Report</option>
+                    </optgroup>
+                    <optgroup label="Staff Management">
+                        <option value="permission_staff">Staff</option>
+                        <option value="permission_payroll">Payroll</option>
+                    </optgroup>
+                    <optgroup label="Acounts Management">
+                        <option value="permission_apayments">Payments</option>
+                        <option value="permission_aentry">Account Entry</option>
+                        <option value="permission_acashbook">Cash Book</option>
+                    </optgroup>
+
+                </select>
+            </div>
+        </div>
+
         <div class="form-group row">
             <div class="col-lg-12 col-md-12">
                 <label for="usertype">Select User Type</label>
@@ -55,15 +91,24 @@ $random = rand(1,10000).date("Ymd");
 </form>
 
 <script>
+    $("#usertype").select2({
+        placeholder: "Select User Type"
+    });
+    $("#usertype").select2({
+        placeholder: "Select User Type"
+    });
+    $("#permissions").select2({
+        placeholder: "Select Permission(s)"
+    });
 
-    $("#usertype").select2({placeholder: "Select User Type"});
-
-    $("#saveuser").click(function () {
+    $("#saveuser").click(function() {
         var fullname = $("#fullname").val();
         var username = $("#username").val();
         var password = $("#password").val();
         var confirmpassword = $("#confirmpassword").val();
         var usertype = $("#usertype").val();
+        var permission = $("#permissions").val();
+
 
         var error = '';
         if (fullname == "") {
@@ -90,6 +135,10 @@ $random = rand(1,10000).date("Ymd");
             error += 'Passwords do not match \n';
             $("#confirmpassword").focus();
         }
+        if (permission == "") {
+            error += 'Please select permission\n';
+            $("#permission").focus();
+        }
         if (usertype == "") {
             error += 'Please specify user type\n';
             $("#usertype").focus();
@@ -99,7 +148,7 @@ $random = rand(1,10000).date("Ymd");
             $.ajax({
                 type: "POST",
                 url: "ajax/queries/saveform_user.php",
-                beforeSend: function () {
+                beforeSend: function() {
                     KTApp.blockPage({
                         overlayColor: "#000000",
                         type: "v2",
@@ -110,15 +159,16 @@ $random = rand(1,10000).date("Ymd");
                 data: {
                     fullname: fullname,
                     username: username,
-                    password:password,
-                    usertype:usertype
+                    password: password,
+                    usertype: usertype,
+                    permission: permission
                 },
-                success: function (text) {
-                    //alert(text);
+                success: function(text) {
+                    alert(text);
                     $.ajax({
                         type: "POST",
                         url: "ajax/forms/adminuser_form.php",
-                        beforeSend: function () {
+                        beforeSend: function() {
                             KTApp.blockPage({
                                 overlayColor: "#000000",
                                 type: "v2",
@@ -126,13 +176,13 @@ $random = rand(1,10000).date("Ymd");
                                 message: "Please wait..."
                             })
                         },
-                        success: function (text) {
+                        success: function(text) {
                             $('#userform_div').html(text);
                         },
-                        error: function (xhr, ajaxOptions, thrownError) {
+                        error: function(xhr, ajaxOptions, thrownError) {
                             alert(xhr.status + " " + thrownError);
                         },
-                        complete: function () {
+                        complete: function() {
                             KTApp.unblockPage();
                         },
                     });
@@ -141,7 +191,7 @@ $random = rand(1,10000).date("Ymd");
                     $.ajax({
                         type: "POST",
                         url: "ajax/tables/adminuser_table.php",
-                        beforeSend: function () {
+                        beforeSend: function() {
                             KTApp.blockPage({
                                 overlayColor: "#000000",
                                 type: "v2",
@@ -149,31 +199,31 @@ $random = rand(1,10000).date("Ymd");
                                 message: "Please wait..."
                             })
                         },
-                        success: function (text) {
+                        success: function(text) {
                             $('#usertable_div').html(text);
                         },
-                        error: function (xhr, ajaxOptions, thrownError) {
+                        error: function(xhr, ajaxOptions, thrownError) {
                             alert(xhr.status + " " + thrownError);
                         },
-                        complete: function () {
+                        complete: function() {
                             KTApp.unblockPage();
                         },
                     });
                 },
 
-                error: function (xhr, ajaxOptions, thrownError) {
+                error: function(xhr, ajaxOptions, thrownError) {
                     alert(xhr.status + " " + thrownError);
                 },
-                complete: function () {
+                complete: function() {
                     KTApp.unblockPage();
                 },
             });
-        }
-        else {
-            $.notify(error, {position: "top center"});
+        } else {
+            $.notify(error, {
+                position: "top center"
+            });
         }
         return false;
 
     });
-
 </script>
