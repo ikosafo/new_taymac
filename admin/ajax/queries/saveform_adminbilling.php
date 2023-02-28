@@ -1,6 +1,8 @@
 <?php
 include('../../../config.php');
 
+$today = date('Y-m-d H:i:s');
+$username = $_SESSION['username'];
 $billing_type = mysqli_real_escape_string($mysqli, $_POST['billing_type']);
 $billing_type_other = mysqli_real_escape_string($mysqli, $_POST['billing_type_other']);
 $billing_tenant = mysqli_real_escape_string($mysqli, $_POST['billing_tenant']);
@@ -41,5 +43,19 @@ VALUES ('$billing_type',
         '$billing_total',
         '$datetime'
         )") or die(mysqli_error($mysqli));
+
+$mysqli->query("INSERT INTO `taymac_logs_mis`
+        (`message`,
+        `logdate`,
+        `username`,
+        `mac_address`,
+        `ip_address`,
+        `action`)
+        VALUES ('Added to billing',
+        '$today',
+        '$username',
+        '$mac_address',
+        '$ip_add',
+        'Successful')") or die(mysqli_error($mysqli));
 
 echo 1;

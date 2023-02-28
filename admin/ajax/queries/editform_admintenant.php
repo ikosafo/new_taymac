@@ -1,6 +1,8 @@
 <?php
 include('../../../config.php');
 
+$today = date('Y-m-d H:i:s');
+$username = $_SESSION['username'];
 $tenant_name = mysqli_real_escape_string($mysqli, $_POST['tenant_name']);
 $tenant_property = mysqli_real_escape_string($mysqli, $_POST['tenant_property']);
 $date_started = mysqli_real_escape_string($mysqli, $_POST['date_started']);
@@ -27,5 +29,19 @@ SET
   `payment_rate` = '$payment_rate'
 
 WHERE `id` = '$theindex'") or die(mysqli_error($mysqli));
+
+$mysqli->query("INSERT INTO `taymac_logs_mis`
+            (`message`,
+             `logdate`,
+             `username`,
+             `mac_address`,
+             `ip_address`,
+             `action`)
+VALUES ('Edited tenant information',
+        '$today',
+        '$username',
+        '$mac_address',
+        '$ip_add',
+        'Successful')") or die(mysqli_error($mysqli));
 
 echo 1;

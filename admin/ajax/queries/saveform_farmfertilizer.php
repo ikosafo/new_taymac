@@ -1,6 +1,8 @@
 <?php
 include('../../../config.php');
 
+$today = date('Y-m-d H:i:s');
+$username = $_SESSION['username'];
 $fertilizer_name = mysqli_real_escape_string($mysqli, $_POST['fertilizer_name']);
 $application_area = mysqli_real_escape_string($mysqli, $_POST['application_area']);
 $tunnel = mysqli_real_escape_string($mysqli, $_POST['tunnel']);
@@ -33,5 +35,20 @@ VALUES (
         '$activity_description',
         '$datetime'
         )") or die(mysqli_error($mysqli));
+
+
+$mysqli->query("INSERT INTO `taymac_logs_mis`
+        (`message`,
+         `logdate`,
+         `username`,
+         `mac_address`,
+         `ip_address`,
+         `action`)
+VALUES ('Added to farm fertilizer',
+    '$today',
+    '$username',
+    '$mac_address',
+    '$ip_add',
+    'Successful')") or die(mysqli_error($mysqli));
 
 echo 1;

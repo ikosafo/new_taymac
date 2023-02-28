@@ -1,6 +1,8 @@
 <?php
 include('../../../config.php');
 
+$today = date('Y-m-d H:i:s');
+$username = $_SESSION['username'];
 $staff_name = mysqli_real_escape_string($mysqli, $_POST['staff_name']);
 $employment_type = mysqli_real_escape_string($mysqli, $_POST['employment_type']);
 $staff_id = mysqli_real_escape_string($mysqli, $_POST['staff_id']);
@@ -26,5 +28,20 @@ SET
   `date_started` = '$date_started'
 
 WHERE `id` = '$theindex'") or die(mysqli_error($mysqli));
+
+$mysqli->query("INSERT INTO `taymac_logs_mis`
+            (`message`,
+             `logdate`,
+             `username`,
+             `mac_address`,
+             `ip_address`,
+             `action`)
+VALUES ('Edited staff information',
+        '$today',
+        '$username',
+        '$mac_address',
+        '$ip_add',
+        'Successful')") or die(mysqli_error($mysqli));
+
 
 echo 1;
