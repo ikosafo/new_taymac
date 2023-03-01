@@ -3,8 +3,7 @@
 
 
 <!-- begin:: Footer -->
-<div class="kt-footer  kt-footer--extended  kt-grid__item" id="kt_footer"
-     style="background-image: url('newassets/media/bg/bg-2.jpg');">
+<div class="kt-footer  kt-footer--extended  kt-grid__item" id="kt_footer" style="background-image: url('newassets/media/bg/bg-2.jpg');">
 
     <div class="kt-footer__bottom">
         <div class="kt-container ">
@@ -23,7 +22,7 @@
         </div>
     </div>
 </div>
-<!-- end:: Footer -->            </div>
+<!-- end:: Footer --> </div>
 </div>
 </div>
 
@@ -59,23 +58,17 @@
 <!-- end::Global Config -->
 
 <!--begin::Global Theme Bundle(used by all pages) -->
-<script src="newassets/plugins/global/plugins.bundle.js"
-        type="text/javascript"></script>
-<script src="newassets/js/scripts.bundle.js"
-        type="text/javascript"></script>
+<script src="newassets/plugins/global/plugins.bundle.js" type="text/javascript"></script>
+<script src="newassets/js/scripts.bundle.js" type="text/javascript"></script>
 <!--end::Global Theme Bundle -->
 
 <!--begin::Page Vendors(used by this page) -->
-<script
-    src="newassets/plugins/custom/fullcalendar/fullcalendar.bundle.js"
-    type="text/javascript"></script>
-<script src="newassets/plugins/custom/gmaps/gmaps.js"
-        type="text/javascript"></script>
+<script src="newassets/plugins/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
+<script src="newassets/plugins/custom/gmaps/gmaps.js" type="text/javascript"></script>
 <!--end::Page Vendors -->
 
 <!--begin::Page Scripts(used by this page) -->
-<script src="newassets/js/pages/dashboard.js"
-        type="text/javascript"></script>
+<script src="newassets/js/pages/dashboard.js" type="text/javascript"></script>
 
 <script src="newassets/js/pages/custom/login/login-general.js" type="text/javascript"></script>
 <script src="newassets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
@@ -83,10 +76,12 @@
 <script src="newassets/js/pages/crud/datatables/extensions/buttons.js" type="text/javascript"></script>
 <script src="newassets/js/pages/notify.js" type="text/javascript"></script>
 <script src="newassets/js/custom.js" type="text/javascript"></script>
+<script src="newassets/js/scriptsnew.js" type="text/javascript"></script>
 <script src="newassets/js/pages/crud/forms/widgets/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="newassets/jquery-confirm/js/jquery-confirm.js" type="text/javascript"></script>
 <script src="assets/vendor/sweetalert/sweetalert.min.js"></script>
 <!--end::Page Scripts -->
 </body>
 <!-- end::Body -->
+
 </html>
