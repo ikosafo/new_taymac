@@ -9,7 +9,7 @@ define('APPROOT', dirname(dirname(__FILE__)));
 date_default_timezone_set('UTC');
 
 //$mysqli= new mysqli('localhost','u349494272_root','Is0205737464','u349494272_taymac');
-$mysqli = new mysqli('localhost:3308', 'root', 'root', 'u349494272_taymac');
+$mysqli = new mysqli('localhost', 'root', '', 'u349494272_taymac');
 
 /*$reg_root = 'https://registration.ahpcgh.org';
 $reg_root_side = 'https://registration.ahpcgh.org';*/
