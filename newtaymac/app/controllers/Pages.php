@@ -18,9 +18,4 @@ class Pages extends Controller
         $this->view('pages/login');
     }
 
-   /*  public function mail()
-    {
-        print_r(SendEmail::compose('yawshadi23@gmail.com', 'hello', 'how are you doing today'));
-    } */
-
 }
